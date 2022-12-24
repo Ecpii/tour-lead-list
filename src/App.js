@@ -1,24 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef, useEffect } from "react";
+import LeadList from "./LeadList";
+import AddLead from "./AddLead"
+
+import {Container, Typography} from '@mui/material'
+
+import "@fontsource/poppins";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const LOCAL_STORAGE_KEY = "leadListApp.leads";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Poppins',
+    h2: {
+      fontSize: "35px",
+      fontWeight: 600
+    },
+    h3: {
+      fontSize: "33px",
+      fontWeight: 600,
+    }
+  },
+  components: {
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          margin: '0 10px 0 0'
+        }
+      }
+    }
+  }
+});
 
 function App() {
+  const [leads, setLeads] = useState([]);
+
+  useEffect(() => {
+    const storedLeads = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storedLeads && storedLeads.length) setLeads(storedLeads);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(leads));
+  }, [leads]);
+
+
+  function removeLead(id) {
+    setLeads(leads.filter(lead => lead.id != id));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Typography variant="h2" sx={{
+          textAlign: 'center'
+        }}>
+          Leads
+        </Typography>
+        <LeadList leads={leads} removeLead={removeLead} />
+
+        <AddLead setLeads={setLeads}/>
+      </Container>
+    </ThemeProvider>
   );
 }
 

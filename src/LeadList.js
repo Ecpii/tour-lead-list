@@ -1,13 +1,18 @@
 import React from "react";
 import Lead from "./Lead";
-import { List } from "@mui/material";
+import { Collapse, List } from "@mui/material";
+import { TransitionGroup } from "react-transition-group";
 
 export default function LeadList({ leads, removeLead }) {
   return (
     <List>
-      {leads.map(lead => (
-        <Lead lead={lead} removeLead={removeLead} key={lead.id} />
-      ))}
+      <TransitionGroup>
+        {leads.map(lead => (
+          <Collapse key={lead.id}>
+            <Lead lead={lead} removeLead={removeLead}/>
+          </Collapse>
+        ))}
+      </TransitionGroup>
     </List>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import LeadList from "./LeadList";
 import AddLead from "./AddLead"
 
@@ -47,7 +47,7 @@ function App() {
 
 
   function removeLead(id) {
-    setLeads(leads.filter(lead => lead.id != id));
+    setLeads(leads.filter(lead => lead.id !== id));
   }
 
   return (

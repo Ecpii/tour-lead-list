@@ -6,6 +6,7 @@ export default function ClickableChip({type, lead}) {
     const [copyTimeoutID, setCopyTimeoutID] = useState(0)
     const [copiedState, setCopiedState] = useState(false)
     const [hovering, setHovering] = useState(false)
+
     const content = type === "email" ? lead.email : lead.phone
     const icon = type === "email" ? <Email /> : <Phone /> 
     

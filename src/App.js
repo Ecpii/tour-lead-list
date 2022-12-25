@@ -13,6 +13,7 @@ const theme = createTheme({
   typography: {
     fontFamily: 'Poppins',
     h2: {
+      color: "#333",
       fontSize: "35px",
       fontWeight: 600
     },
@@ -53,7 +54,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container>
         <Typography variant="h2" sx={{
-          textAlign: 'center'
+          textAlign: 'center',
+          marginTop: theme.spacing(4)
         }}>
           Leads
         </Typography>
